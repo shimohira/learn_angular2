@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router-deprecated';
 import {Hero} from './hero';
 import {HeroDetailComponent} from './hero-detail.component';
 import {HeroService} from './hero.service';
@@ -13,7 +14,10 @@ import {HeroService} from './hero.service';
     		<span class="badge">{{hero.id}}</span> {{hero.name}}
     	</li>
     </ul>
-    <my-hero-detail [hero]="selectedHero"></my-hero-detail>
+    <div *ngIf="selectedHero">
+      <h2>{{selectedHero.name | uppercase}} is my Hero</h2>
+      <button (click)="gotoDetail()">View Details</button>
+    </div>
     `,
     styles: [`
       .selected {
@@ -68,7 +72,7 @@ import {HeroService} from './hero.service';
 })
 
 export class HeroesComponent implements OnInit{
-  constructor(private heroService: HeroService) { 
+  constructor(private heroService: HeroService, private router: Router) { 
 
   }
 
@@ -85,4 +89,9 @@ export class HeroesComponent implements OnInit{
   selectedHero: Hero;
 	
 	onSelect(hero: Hero) { this.selectedHero = hero; }
+
+  gotoDetail() {
+    let link = ['HeroDetail', { id: this.selectedHero.id }];
+    this.router.navigate(link);
+  }
 }

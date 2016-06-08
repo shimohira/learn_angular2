@@ -17,10 +17,11 @@ import {RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS} from '@angular/router-
   `,
   directives: [ROUTER_DIRECTIVES],
   providers: [ROUTER_PROVIDERS,HeroService],
+  styleUrls: ['app/assets/app.component.css'],
 })
 
-@RouteConfig ([{
-	path: '/heroes',
+@RouteConfig([{
+  path: '/heroes',
 	name: 'Heroes',
 	component: HeroesComponent
 }, {
