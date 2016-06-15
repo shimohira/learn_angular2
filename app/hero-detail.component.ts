@@ -10,15 +10,25 @@ import {Hero} from './hero';
 })
 
 export class HeroDetailComponent implements OnInit {
-	//@Input() 
+  private navigated = false;
+	//@Input()
 	hero: Hero;
 	constructor(private heroService: HeroService, private routeParams: RouteParams){
 
 	}
 
 	ngOnInit() {
-		let id = +this.routeParams.get('id');
-		this.heroService.getHero(id).then(hero => this.hero = hero);
+    if (this.routeParams.get('id') !== null){
+      let id= +this.routeParams.get('id');
+      this.navigated = true;
+      this.heroService.getHero(id)
+        .then(hero => this.hero = hero);
+    } else {
+      this.navigated = false;
+      this.hero = new Hero();
+    }
+		// let id = +this.routeParams.get('id');
+		// this.heroService.getHero(id).then(hero => this.hero = hero);
 	}
 
 	goBack() {
